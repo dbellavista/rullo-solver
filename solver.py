@@ -13,10 +13,11 @@ def main():
         full = []
         for line in f.readlines():
             full.append([int(el) for el in line.split(' ')])
-        size = len(full[0])
-        matrix = full[0:size]
-        col_constraints = [(full[size][i], []) for i in range(0, size)]
-        row_constraints = [(full[size + 1][i], []) for i in range(0, size)]
+        N = len(full[0])
+        M = len(full) - 2
+        matrix = full[0:M]
+        col_constraints = [(full[M][i], []) for i in range(0, N)]
+        row_constraints = [(full[M + 1][i], []) for i in range(0, M)]
 
     vars_decl = []
     for row_idx, row in enumerate(matrix):
@@ -43,7 +44,7 @@ def main():
         print(out)
     else:
         results = re.findall(r'x\[(\d+)\]\[(\d+)\]\s*(\d+)', out)
-        matrix_result = [[0] * size for i in range(0, size)]
+        matrix_result = [[0] * N for i in range(0, M)]
         for row, col, val in results:
             matrix_result[int(row)][int(col)] = val
         print('\n'.join([' '.join(res) for res in matrix_result]))
